@@ -27,7 +27,7 @@ jobs:
       - name: Update wiki page
         run: |
           cd wiki
-          old_md5=$(md5sum test_page.md 2> /dev/null)
+          old_md5=$(md5sum test_page.md 2> /dev/null || echo empty)
           echo "This is a test page" > test_page.md
           date >> test_page.md
           new_md5=$(md5sum test_page.md 2> /dev/null)
