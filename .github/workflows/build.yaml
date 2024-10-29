@@ -21,7 +21,7 @@ jobs:
       - name: Checkout wiki
         uses: actions/checkout@v4
         with:
-          repository: rackun-ai/triton-build.wiki
+          repository: rackun-ai/triton-builds.wiki
           path: wiki
 
       - name: Update wiki page
