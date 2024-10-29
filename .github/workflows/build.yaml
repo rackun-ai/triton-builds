@@ -1,0 +1,40 @@
+name: Build Triton
+
+on:
+  workflow_dispatch:
+    inputs:
+      pytorch_mode:
+        description: Triton to build
+        type: choice
+        options:
+          - triton-cpu
+          - triton-cuda
+          - triton-xpu
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          repository: rackun-ai/triton-build.wiki
+          path: wiki
+
+      - name: Update wiki page
+        run: |
+          cd wiki
+          old_md5=$(md5sum test_page.md 2> /dev/null)
+          echo "This is a test page" > test_page.md
+          date >> test_page.md
+          new_md5=$(md5sum test_page.md 2> /dev/null)
+          if [[ $old_md5 != $new_md5 ]]; then
+              git config --global user.email "linchpiner@gmail.com"
+              git config --global user.name "Paul Linchpiner"
+              git add test_page.md
+              git commit -m "Update test_page.md"
+              git push origin master
+          fi
