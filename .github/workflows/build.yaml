@@ -28,14 +28,15 @@ jobs:
       - name: Update wiki page
         run: |
           cd wiki
-          old_md5=$(md5sum test_page.md 2> /dev/null || echo empty)
-          echo "This is a test page" > test_page.md
-          date >> test_page.md
-          new_md5=$(md5sum test_page.md 2> /dev/null)
+          old_md5=$(md5sum test_page.txt 2> /dev/null || echo empty)
+          echo "This is a test page" > test_page.txt
+          echo "https://github.com/mattcone/markdown-guide/blob/master/_basic-syntax/line-breaks.md" >> test_page.txt
+          date >> test_page.txt
+          new_md5=$(md5sum test_page.txt 2> /dev/null)
           if [[ $old_md5 != $new_md5 ]]; then
               git config --global user.email "linchpiner@gmail.com"
               git config --global user.name "Paul Linchpiner"
-              git add test_page.md
-              git commit -m "Update test_page.md"
+              git add test_page.txt
+              git commit -m "Update test_page.txt"
               git push origin master
           fi
